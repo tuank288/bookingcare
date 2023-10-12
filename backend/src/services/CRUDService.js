@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import db from '../models';
-import { where } from 'sequelize';
+
 var salt = bcrypt.genSaltSync(10);
 
 let createNewUser = async (data) => {
