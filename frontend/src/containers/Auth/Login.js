@@ -1,5 +1,10 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { push } from "connected-react-router";
+import * as actions from "../../store/actions";
+import { FormattedMessage } from 'react-intl';
 import './Login.scss';
+import { handleLogin } from "../../services/userService";
 
 class Login extends React.Component {
 
@@ -8,22 +13,41 @@ class Login extends React.Component {
         this.state = {
             username: '',
             password: '',
-            isShowHidePassword: false
+            isShowHidePassword: false,
+            errMessage: ''
         }
     }
 
     handleInputChange = (event) => {
         const fieldName = event.target.name;
         this.setState({
-            [fieldName]: event.target.value
+            [fieldName]: event.target.value,
         });
     }
 
-    handleLogin = (event) => {
-        // event.preventDefault()
-
-        alert(`username: ${this.state.username} password: ${this.state.password}`)
-
+    handleLogin = async () => {
+        this.setState({
+            errMessage: ''
+        })
+        try {
+            let data = await handleLogin(this.state.username, this.state.password)
+            if (data && data.errCode !== 0) {
+                this.setState({
+                    errMessage: data.message
+                })
+            }
+            if (data && data.errCode === 0) {
+                this.props.userLoginSuccess(data.user)
+            }
+        } catch (error) {
+            if (error.response) {
+                if (error.response.data) {
+                    this.setState({
+                        errMessage: error.response.data.message
+                    })
+                }
+            }
+        }
     }
 
     handleShowHidePassword = () => {
@@ -67,20 +91,24 @@ class Login extends React.Component {
                                 />
                                 <span
                                     onClick={() => this.handleShowHidePassword()}
+                                    style={{ display: this.state.password ? 'block' : 'none' }}
                                 >
                                     {!isShowHidePassword
                                         ?
-                                        <i className="fa fa-eye" />
-                                        :
                                         <i className="fa fa-eye-slash" />
+                                        :
+                                        <i className="fa fa-eye" />
                                     }
                                 </span>
                             </div>
                         </div>
+                        <div className="col-12" style={{ color: 'red' }}>
+                            {this.state.errMessage}
+                        </div>
                         <div className="col-12">
                             <button
                                 className="btn-login"
-                                onClick={(event) => this.handleLogin(event)}
+                                onClick={this.handleLogin}
                             >
                                 Login
                             </button>
@@ -92,8 +120,8 @@ class Login extends React.Component {
                             <span className="">Or Login with:</span>
                         </div>
                         <div className="col-12 social-login">
-                            <i className="fa fa-google-plus" />
-                            <i className="fa fa-facebook" />
+                            <i className="fab fa-google-plus-g" />
+                            <i className="fab fa-facebook-f" />
                         </div>
                     </div>
                 </div>
@@ -102,4 +130,18 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+const mapStateToProps = state => {
+    return {
+        language: state.app.language
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        navigate: (path) => dispatch(push(path)),
+        // userLoginFail: () => dispatch(actions.adminLoginFail()),
+        userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

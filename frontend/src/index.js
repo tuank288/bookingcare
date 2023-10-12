@@ -1,18 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import './containers/Auth/Login'
+import 'react-toastify/dist/ReactToastify.css';
+import './styles/styles.scss';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import App from './containers/App';
+import * as serviceWorker from './serviceWorker';
+import IntlProviderWrapper from "./hoc/IntlProviderWrapper";
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+import { Provider } from 'react-redux';
+import reduxStore, { persistor } from './redux';
+
+const renderApp = () => {
+    ReactDOM.render(
+        <Provider store={reduxStore}>
+            <IntlProviderWrapper>
+                <App persistor={persistor}/>
+            </IntlProviderWrapper>
+        </Provider>,
+        document.getElementById('root')
+    );
+};
+
+renderApp();
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
