@@ -25,7 +25,7 @@ class UserManage extends Component {
         let { arrUser } = this.state;
         return (
             <div className="user-container">
-                <div className='title text-center'>Manage user with Eric</div>
+                <div className='title text-center'>Manage user</div>
                 <div className='user-table mt-3 mx-1'>
                     <table id="customers">
                         <tbody>
