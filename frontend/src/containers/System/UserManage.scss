@@ -52,3 +52,43 @@ button {
         color     : #ff4c4c;
     }
 }
+
+
+
+.modal-user-container {
+
+    button.close {
+        /* border: none; */
+        background : transparent;
+        color      : white;
+        font-size  : 30px;
+        font-weight: inherit;
+        margin     : 0;
+        padding    : 0;
+    }
+
+    .modal-user-body {
+        display              : grid;
+        grid-gap             : 10px;
+        grid-template-columns: auto auto;
+
+        .input-container {
+            display: grid;
+            padding: 0 10px 0 10px;
+            width  : 100%;
+
+            &:last-child {
+                grid-column: 1 / span 2;
+            }
+
+            input {
+                border-radius: 3px;
+                height       : 30px;
+                border       : 1px solid gray;
+                outline      : none;
+                padding      : 10px;
+                width        : 100%;
+            }
+        }
+    }
+}

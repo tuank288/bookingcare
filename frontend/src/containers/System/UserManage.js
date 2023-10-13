@@ -3,12 +3,15 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
 import { getAllUsers } from '../../services/userService';
+import ModalUser from './ModalUser';
+
 class UserManage extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            arrUser: []
+            arrUser: [],
+            isOpenModalUser: false
         }
     }
     async componentDidMount() {
@@ -21,11 +24,35 @@ class UserManage extends Component {
         // console.log('get user from nodejs', response.users);
     }
 
+    handleAddNewUser = () => {
+        this.setState({
+            isOpenModalUser: true
+        })
+    }
+
+    toggleUserModal = () => {
+        this.setState({
+            isOpenModalUser: !this.state.isOpenModalUser
+        })
+    }
+
     render() {
         let { arrUser } = this.state;
         return (
             <div className="user-container">
+                <ModalUser
+                    isOpenModalUser={this.state.isOpenModalUser}
+                    toggleUserModal={this.toggleUserModal}
+                />
                 <div className='title text-center'>Manage user</div>
+                <div className='mx-1'>
+                    <button
+                        className='btn btn-primary px-1'
+                        onClick={this.handleAddNewUser}>
+                        <i className="fas fa-plus px-1"></i>
+                        Add new users
+                    </button>
+                </div>
                 <div className='user-table mt-3 mx-1'>
                     <table id="customers">
                         <tbody>
@@ -47,15 +74,14 @@ class UserManage extends Component {
                                             <td>{item.lastName}</td>
                                             <td>{item.address}</td>
                                             <td>
-                                                <button className='btn-edit'><i class="far fa-edit"></i></button>
-                                                <button className='btn-delete'><i class="far fa-trash-alt"></i></button>
+                                                <button className='btn-edit'><i className="far fa-edit"></i></button>
+                                                <button className='btn-delete'><i className="far fa-trash-alt"></i></button>
                                             </td>
                                         </tr>
                                     )
                                 })
                             }
                         </tbody>
-
                     </table>
                 </div>
             </div>

@@ -90,7 +90,7 @@ class Login extends React.Component {
                                     onChange={this.handleInputChange}
                                 />
                                 <span
-                                    onClick={() => this.handleShowHidePassword()}
+                                    onClick={this.handleShowHidePassword}
                                     style={{ display: this.state.password ? 'block' : 'none' }}
                                 >
                                     {!isShowHidePassword
