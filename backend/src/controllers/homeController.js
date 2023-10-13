@@ -57,7 +57,7 @@ let deleteCRUD = async (req, res) => {
     let id = req.query.id;
 
     if (id) {
-        let data = await CRUDService.deteleUserByid(id)
+        let data = await CRUDService.deteleUserById(id)
         if (data === null) {
             return res.send('User not found')
         }

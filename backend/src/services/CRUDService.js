@@ -86,12 +86,14 @@ let updateUserData = (data) => {
     })
 }
 
-let deteleUserByid = (userId) => {
+let deteleUserById = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let user = await db.User.findOne({
-                where: { id: userId }
+                where: { id: userId },
+                raw: false
             });
+            console.log(user);
             if (user) {
                 await user.destroy();
                 resolve();
@@ -110,5 +112,5 @@ module.exports = {
     getAllUser: getAllUser,
     getUserInfoById: getUserInfoById,
     updateUserData: updateUserData,
-    deteleUserByid: deteleUserByid
+    deteleUserById: deteleUserById
 }
