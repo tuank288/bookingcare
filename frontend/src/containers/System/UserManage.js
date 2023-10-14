@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers, createNewUserService, deleteUserService } from '../../services/userService';
+import {
+    getAllUsers,
+    createNewUserService,
+    deleteUserService,
+    editUserService
+} from '../../services/userService';
+
 import ModalUser from './ModalUser';
 import { emitter } from '../../utils/Emitter';
 
@@ -14,6 +20,7 @@ class UserManage extends Component {
         this.state = {
             arrUser: [],
             isOpenModalUser: false,
+            userId: ''
         }
     }
     async componentDidMount() {
@@ -35,9 +42,10 @@ class UserManage extends Component {
         })
     }
 
-    toggleUserModal = () => {
+    toggleUserModal = (id) => {
         this.setState({
-            isOpenModalUser: !this.state.isOpenModalUser
+            isOpenModalUser: !this.state.isOpenModalUser,
+            userId: id
         })
     }
 
@@ -66,8 +74,39 @@ class UserManage extends Component {
             console.log('response', response);
             if (response && response.errCode !== 0) {
                 alert(response.errMessage)
+                await this.getAllUserFromReact();
             } else {
                 await this.getAllUserFromReact();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    handleEditUser = async (id) => {
+        this.toggleUserModal(id);
+        let response = await getAllUsers(id)
+        emitter.emit('EVENT_UPDATE_USER', response)
+    }
+
+    updateUser = async (data) => {
+        try {
+            let userData = { ...data }
+            userData = {
+                id: this.state.userId,
+                ...data
+            }
+            let response = await editUserService(userData)
+            console.log('check data', userData);
+            if (response && response.errCode !== 0) {
+                alert(response.errMessage)
+            } else {
+                await this.getAllUserFromReact();
+                this.setState({
+                    isOpenModalUser: !this.state.isOpenModalUser,
+                    userId: ''
+                })
+                emitter.emit('EVENT_CLEAR_MODAL_DATA')
             }
         } catch (error) {
             console.log(error);
@@ -82,6 +121,8 @@ class UserManage extends Component {
                     isOpenModalUser={this.state.isOpenModalUser}
                     toggleUserModal={this.toggleUserModal}
                     createNewUser={this.createNewUser}
+                    userId={this.state.userId}
+                    updateUser={this.updateUser}
                 />
                 <div className='title text-center'>Manage user</div>
                 <div className='mx-1'>
@@ -113,7 +154,7 @@ class UserManage extends Component {
                                             <td>
                                                 <button
                                                     className='btn-edit'
-
+                                                    onClick={() => this.handleEditUser(item.id)}
                                                 >
                                                     <i className="far fa-edit" />
                                                 </button>
@@ -121,7 +162,8 @@ class UserManage extends Component {
                                                     className='btn-delete'
                                                     onClick={() => this.handleDeleteUser(item.id)}
                                                 >
-                                                    <i className="far fa-trash-alt" />
+                                                    <i className="far fa-trash-alt"
+                                                    />
                                                 </button>
                                             </td>
                                         </tr>

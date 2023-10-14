@@ -38,8 +38,8 @@ let handleGetAllUser = async (req, res) => {
 }
 
 let handleCreateNewUser = async (req, res) => {
-    let { email, password, firstName, lastName } = req.body;
-    if (!email || !password || !firstName || !lastName) {
+    let { email, password, firstName, lastName, address } = req.body;
+    if (!email || !password || !firstName || !lastName || !address) {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing required parameters!',

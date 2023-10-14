@@ -13,10 +13,26 @@ class ModalUser extends Component {
             password: '',
             firstName: '',
             lastName: '',
-            address: ''
+            address: '',
         }
-
+        this.dataUserId();
         this.listenToEmitter();
+    }
+
+    dataUserId = () => {
+        emitter.on('EVENT_UPDATE_USER', async (res) => {
+            let data = res.users
+            let copyState = { ...this.state };
+            copyState = {
+                email: data.email,
+                firstName: data.firstName,
+                lastName: data.lastName,
+                address: data.address,
+            }
+            this.setState({
+                ...copyState
+            })
+        })
     }
 
     listenToEmitter() {
@@ -33,6 +49,13 @@ class ModalUser extends Component {
 
     componentDidMount() {
 
+    }
+
+    componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = (state, callback) => {
+            return;
+        };
     }
 
     toggle = () => {
@@ -55,9 +78,14 @@ class ModalUser extends Component {
         })
     }
 
-    checkValidateInput = () => {
+    checkValidateInput = (userId) => {
         let isValue = true;
-        let arrInput = ['email', 'password', 'firstName', 'lastName', 'address'];
+        let arrInput = [];
+        if (userId) {
+            arrInput = ['email', 'firstName', 'lastName', 'address'];
+        } else {
+            arrInput = ['email', 'password', 'firstName', 'lastName', 'address'];
+        }
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
                 isValue = false;
@@ -69,15 +97,22 @@ class ModalUser extends Component {
     }
 
     handleAddNewUser = async () => {
-        let isValid = this.checkValidateInput();
+        let isValid = this.checkValidateInput(this.props.userId);
+        if (this.props.userId) {
+            if (isValid) {
+                let data = { ...this.state };
+                delete data.password;
+                this.props.updateUser(data)
+            }
+            return;
+        }
         if (isValid) {
             this.props.createNewUser(this.state);
         }
     }
 
-
-
     render() {
+        let { userId } = this.props;
         return (
             <Modal
                 isOpen={this.props.isOpenModalUser}
@@ -86,7 +121,11 @@ class ModalUser extends Component {
                 size='lg'
             >
                 <ModalHeader toggle={this.toggle}>
-                    Create new user
+                    {userId ?
+                        'Update user'
+                        :
+                        'Create new user'
+                    }
                 </ModalHeader>
                 <ModalBody>
                     <div className='modal-user-body'>
@@ -97,9 +136,10 @@ class ModalUser extends Component {
                                 name='email'
                                 onChange={this.handleOnChange}
                                 value={this.state.email}
+                                readOnly={userId ? true : false}
                             />
                         </div>
-                        <div className='input-container'>
+                        <div className='input-container' style={{ visibility: userId ? 'hidden' : 'visible' }}>
                             <label>Password</label>
                             <input
                                 type='password'
@@ -107,6 +147,7 @@ class ModalUser extends Component {
                                 name='password'
                                 onChange={this.handleOnChange}
                                 value={this.state.password}
+                                readOnly={userId ? true : false}
                             />
                         </div>
                         <div className='input-container'>
@@ -142,7 +183,11 @@ class ModalUser extends Component {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" className='px-2' onClick={this.handleAddNewUser}>
-                        Add new
+                        {userId ?
+                            'Save'
+                            :
+                            'Add new'
+                        }
                     </Button>{' '}
                     <Button color="secondary" className='px-2' onClick={this.toggle}>
                         Close
