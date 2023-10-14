@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers, createNewUserService } from '../../services/userService';
+import { getAllUsers, createNewUserService, deleteUserService } from '../../services/userService';
 import ModalUser from './ModalUser';
+import { emitter } from '../../utils/Emitter';
 
 
 class UserManage extends Component {
@@ -13,7 +14,6 @@ class UserManage extends Component {
         this.state = {
             arrUser: [],
             isOpenModalUser: false,
-            clearState: false
         }
     }
     async componentDidMount() {
@@ -51,6 +51,7 @@ class UserManage extends Component {
                 this.setState({
                     isOpenModalUser: !this.state.isOpenModalUser,
                 })
+                emitter.emit('EVENT_CLEAR_MODAL_DATA')
             }
             // console.log(response);
         } catch (error) {
@@ -58,15 +59,19 @@ class UserManage extends Component {
         }
     }
 
-    clearStateValue = (value) => {
-        this.setState({
-            clearState: value
-        })
-    }
 
-
-    handleDeleteUser = () => {
-
+    handleDeleteUser = async (id) => {
+        try {
+            let response = await deleteUserService(id)
+            console.log('response', response);
+            if (response && response.errCode !== 0) {
+                alert(response.errMessage)
+            } else {
+                await this.getAllUserFromReact();
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     render() {
@@ -77,8 +82,6 @@ class UserManage extends Component {
                     isOpenModalUser={this.state.isOpenModalUser}
                     toggleUserModal={this.toggleUserModal}
                     createNewUser={this.createNewUser}
-                    clearState={this.state.clearState}
-                    clearStateValue={this.clearStateValue}
                 />
                 <div className='title text-center'>Manage user</div>
                 <div className='mx-1'>
@@ -110,11 +113,14 @@ class UserManage extends Component {
                                             <td>
                                                 <button
                                                     className='btn-edit'
-                                                    onClick={() => this.handleDeleteUser(item.id)}
+
                                                 >
                                                     <i className="far fa-edit" />
                                                 </button>
-                                                <button className='btn-delete'>
+                                                <button
+                                                    className='btn-delete'
+                                                    onClick={() => this.handleDeleteUser(item.id)}
+                                                >
                                                     <i className="far fa-trash-alt" />
                                                 </button>
                                             </td>
