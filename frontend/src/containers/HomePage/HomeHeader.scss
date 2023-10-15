@@ -79,6 +79,7 @@
             color      : white;
             font-size  : 30px;
             text-shadow: 1px 1px 1px #333;
+            font-weight: 600;
         }
 
         .search {
@@ -109,9 +110,12 @@
     }
 
     .content-down {
-        height    : 50%;
-        border    : 1px solid gray;
-        background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1));
+        height         : 50%;
+        border         : 1px solid gray;
+        background     : linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.9), white);
+        display        : flex;
+        justify-content: center;
+        align-items    : flex-end;
 
         .option {
             display        : flex;
