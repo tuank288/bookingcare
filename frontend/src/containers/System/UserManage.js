@@ -27,6 +27,12 @@ class UserManage extends Component {
         await this.getAllUserFromReact();
     }
 
+    componentWillUnmount() {
+        this.setState({
+            userId: ''
+        })
+    }
+
     getAllUserFromReact = async () => {
         let response = await getAllUsers('ALL')
         if (response && response.errCode === 0) {

@@ -100,8 +100,7 @@ class ModalUser extends Component {
         let isValid = this.checkValidateInput(this.props.userId);
         if (this.props.userId) {
             if (isValid) {
-                let data = { ...this.state };
-                delete data.password;
+                let { email, password, ...data } = this.state
                 this.props.updateUser(data)
             }
             return;
@@ -136,7 +135,7 @@ class ModalUser extends Component {
                                 name='email'
                                 onChange={this.handleOnChange}
                                 value={this.state.email}
-                                readOnly={userId ? true : false}
+                                disabled={userId ? true : false}
                             />
                         </div>
                         <div className='input-container' style={{ visibility: userId ? 'hidden' : 'visible' }}>
@@ -147,7 +146,7 @@ class ModalUser extends Component {
                                 name='password'
                                 onChange={this.handleOnChange}
                                 value={this.state.password}
-                                readOnly={userId ? true : false}
+                                disabled={userId ? true : false}
                             />
                         </div>
                         <div className='input-container'>
