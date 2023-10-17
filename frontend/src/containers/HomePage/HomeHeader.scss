@@ -50,9 +50,9 @@
             display        : flex;
             justify-content: flex-end;
             align-items    : center;
+            gap            : 10%;
 
             .support {
-                padding    : 0 50px;
                 display    : flex;
                 align-items: center;
                 cursor     : pointer;
@@ -68,19 +68,31 @@
 
                 /* justify-content: center; */
                 .language-vi {
-                    cursor: pointer;
+                    cursor : pointer;
+                    opacity: 0.2;
 
                     &.active {
-                        color: #f7d800;
+                        opacity: 1;
+                        color  : #cb9c10;
+                    }
+
+                    &:hover {
+                        opacity: 0.8;
                     }
                 }
 
                 .language-en {
-                    margin: 0 10px;
-                    cursor: pointer;
+                    margin : 0 10px;
+                    cursor : pointer;
+                    opacity: 0.2;
 
                     &.active {
-                        color: rgb(33, 33, 118);
+                        opacity: 1;
+                        color  : #3e0a6a;
+                    }
+
+                    &:hover {
+                        opacity: 0.8;
                     }
                 }
             }
@@ -185,6 +197,7 @@
                         font-size  : 15px;
                         font-weight: 500;
                         cursor     : pointer;
+                        padding    : 5px;
 
                         &:hover {
                             color: #2ea6bb;

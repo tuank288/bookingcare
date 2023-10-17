@@ -3,12 +3,17 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './HomeHeader.scss';
 import { FormattedMessage } from 'react-intl';
+import { LANGUAGE } from '../../utils/constant';
+import { changeLanguageApp } from '../../store/actions';
 
 class HomeHeader extends Component {
 
-    render() {
-        console.log('check', this.props);
+    changeLanguage = (language) => {
+        this.props.changeLanguageApp(language)
+    }
 
+    render() {
+        let language = this.props.language;
         return (
             <>
                 <div className='home-header-container'>
@@ -43,12 +48,16 @@ class HomeHeader extends Component {
                                 <span><FormattedMessage id="homeheader.support" /></span>
                             </div>
                             <div className='language'>
-                                <div className='language-vi'>VN</div>
-                                <div className='language-en'>EN</div>
+                                <div className={language === LANGUAGE.VI ? 'language-vi active' : 'language-vi'}>
+                                    <span onClick={() => this.changeLanguage(LANGUAGE.VI)}>VN</span>
+                                </div>
+                                <div className={language === LANGUAGE.EN ? 'language-en active' : 'language-en'}>
+                                    <span onClick={() => this.changeLanguage(LANGUAGE.EN)}>EN</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div >
                 <div className='home-header-banner'>
                     <div className='content-up'>
                         <div className='title1'>
@@ -59,10 +68,6 @@ class HomeHeader extends Component {
                         </div>
                         <div className='search'>
                             <i className="fas fa-search" />
-                            {/* <input
-                                type='text'
-                                placeholder='Tìm chuyên khoa khám bệnh'
-                            /> */}
                             <FormattedMessage id="banner.find-specialist">
                                 {placeholder =>
                                     <input placeholder={placeholder} />
@@ -128,7 +133,6 @@ class HomeHeader extends Component {
             </>
         );
     }
-
 }
 
 const mapStateToProps = state => {
@@ -140,6 +144,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        changeLanguageApp: (language) => dispatch(changeLanguageApp(language))
     };
 };
 
