@@ -9,6 +9,8 @@ import OutStandingDoctor from './Section/OutStandingDoctor';
 import HandBook from './Section/HandBook';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import About from './Section/About';
+import HomeFooter from './HomeFooter';
 
 class HomePage extends Component {
 
@@ -34,6 +36,10 @@ class HomePage extends Component {
                 <HandBook
                     settings={settings}
                 />
+                <About />
+                <HomeFooter />
+
+                {/* <div className="scroll-to-top rounded" style={{ display: "inline" }} onClick={this.scrollTop}>TOP</div> */}
             </div>
         );
     }

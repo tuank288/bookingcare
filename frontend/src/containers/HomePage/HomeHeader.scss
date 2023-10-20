@@ -3,6 +3,10 @@
     width      : 100%;
     padding    : 0 40px;
     font-family: system-ui;
+    position   : sticky;
+    z-index    : 10;
+    top        : 0;
+    background : white;
 
     .home-header-content {
         width  : 100%;
