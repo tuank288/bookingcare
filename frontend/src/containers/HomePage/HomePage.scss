@@ -135,13 +135,11 @@ $marginBody: 0 clamp(1rem, $calcMargin, 20%);
     }
 }
 
-
-
 .section-about {
     padding: $marginBody;
 
     .section-about-header {
-        padding    : 20px 10px;
+        padding    : 20px 0;
         font-size  : 22px;
         font-weight: 600;
     }
@@ -154,7 +152,6 @@ $marginBody: 0 clamp(1rem, $calcMargin, 20%);
             width        : 60%;
             padding-right: 10px;
 
-            // max-width: 100%;
             iframe {
                 width : 100%;
                 height: 400px;
