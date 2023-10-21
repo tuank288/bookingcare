@@ -34,8 +34,8 @@ let handleUserLogin = (email, password) => {
                 userData.errMessage = `Your's Email isn't exits in your system. Plz try orther email`
             }
             resolve(userData)
-        } catch (error) {
-            reject(error)
+        } catch (e) {
+            reject(e)
         }
     })
 }
@@ -51,8 +51,8 @@ let checkUserEmail = (userEmail) => {
             } else {
                 resolve(false)
             }
-        } catch (error) {
-            reject(error)
+        } catch (e) {
+            reject(e)
         }
     })
 }
@@ -77,8 +77,8 @@ let getAllUser = (userId) => {
                 })
             }
             resolve(users);
-        } catch (error) {
-            reject(error)
+        } catch (e) {
+            reject(e)
         }
     })
 }
@@ -111,8 +111,8 @@ let createNewUser = (data) => {
                     message: 'OK',
                 })
             }
-        } catch (error) {
-            reject(error)
+        } catch (e) {
+            reject(e)
         }
     })
 }
@@ -122,8 +122,8 @@ let hashUserPassword = (password) => {
         try {
             let hashUserPassword = await bcrypt.hashSync(password, salt);
             resolve(hashUserPassword)
-        } catch (error) {
-            reject(error)
+        } catch (e) {
+            reject(e)
         }
     })
 }
@@ -148,8 +148,8 @@ let deleteUser = (userId) => {
                     errMessage: `The user isn't exist`
                 })
             }
-        } catch (error) {
-            reject(error)
+        } catch (e) {
+            reject(e)
         }
     })
 }
@@ -178,8 +178,33 @@ let editUser = (data) => {
                     errMessage: `User's not found!`
                 })
             }
-        } catch (error) {
-            reject(error)
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
+let getAllCodeService = (type) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!type) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameters!'
+                })
+            } else {
+                let res = {};
+                let allcode = await db.Allcode.findAll({
+                    where: {
+                        type
+                    }
+                });
+                res.errCode = 0;
+                res.data = allcode;
+                resolve(res)
+            }
+        } catch (e) {
+            reject(e)
         }
     })
 }
@@ -189,5 +214,6 @@ module.exports = {
     getAllUser: getAllUser,
     createNewUser: createNewUser,
     deleteUser: deleteUser,
-    editUser: editUser
+    editUser: editUser,
+    getAllCodeService: getAllCodeService
 }
