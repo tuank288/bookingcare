@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './HomeHeader.scss';
 import { FormattedMessage } from 'react-intl';
-import { LANGUAGE } from '../../utils/constant';
+import { LANGUAGES } from '../../utils/constant';
 import { changeLanguageApp } from '../../store/actions';
 
 class HomeHeader extends Component {
@@ -48,11 +48,11 @@ class HomeHeader extends Component {
                                 <span><FormattedMessage id="homeheader.support" /></span>
                             </div>
                             <div className='language'>
-                                <div className={language === LANGUAGE.VI ? 'language-vi active' : 'language-vi'}>
-                                    <span onClick={() => this.changeLanguage(LANGUAGE.VI)}>VN</span>
+                                <div className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'}>
+                                    <span onClick={() => this.changeLanguage(LANGUAGES.VI)}>VN</span>
                                 </div>
-                                <div className={language === LANGUAGE.EN ? 'language-en active' : 'language-en'}>
-                                    <span onClick={() => this.changeLanguage(LANGUAGE.EN)}>EN</span>
+                                <div className={language === LANGUAGES.EN ? 'language-en active' : 'language-en'}>
+                                    <span onClick={() => this.changeLanguage(LANGUAGES.EN)}>EN</span>
                                 </div>
                             </div>
                         </div>
