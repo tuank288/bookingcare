@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import * as actions from "../../store/actions";
 import './HomeHeader.scss';
 import { FormattedMessage } from 'react-intl';
 import { LANGUAGES } from '../../utils/constant';
-import { changeLanguageApp } from '../../store/actions';
 
 class HomeHeader extends Component {
 
@@ -144,7 +143,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeLanguageApp: (language) => dispatch(changeLanguageApp(language))
+        changeLanguageApp: (language) => dispatch(actions.changeLanguageApp(language))
     };
 };
 
