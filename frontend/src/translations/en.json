@@ -36,5 +36,25 @@
             "handbook": "Handbook",
             "manage-handbook": "Manage handbook"
         }
+    },
+    "manage-user": {
+        "add": "Add a new user",
+        "email": "Email",
+        "enter-email": "Enter email",
+        "password": "Password",
+        "enter-password": "Enter Password",
+        "first-name": "First name",
+        "enter-first-name": "Enter first name",
+        "last-name": "Last name",
+        "enter-last-name": "Enter last name",
+        "phone-number": "Phone number",
+        "enter-phone-number": "Enter phone number",
+        "address": "Address",
+        "enter-address": "Enter address",
+        "gender": "Gender",
+        "role": "Role",
+        "position": "Position",
+        "image": "Avatar",
+        "save": "Save"
     }
 }

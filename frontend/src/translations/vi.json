@@ -36,5 +36,25 @@
             "handbook": "Cẩm nang",
             "manage-handbook": "Quản lý cẩm nang"
         }
+    },
+    "manage-user": {
+        "add": "Thêm mới người dùng",
+        "email": "Email",
+        "enter-email": "Nhập email",
+        "password": "Mật khẩu",
+        "enter-password": "Nhập mật khẩu",
+        "first-name": "Tên",
+        "enter-first-name": "Nhập tên",
+        "last-name": "Họ",
+        "enter-last-name": "Nhập họ",
+        "phone-number": "Số điện thoại",
+        "enter-phone-number": "Nhập số điện thoại",
+        "address": "Địa chỉ",
+        "enter-address": "Nhập địa chỉ",
+        "gender": "Giới tính",
+        "role": "Quyền",
+        "position": "Chức danh",
+        "image": "Hình ảnh",
+        "save": "Lưu người dùng"
     }
 }
