@@ -1,6 +1,7 @@
 import actionTypes from '../actions/actionTypes';
 
 const initialState = {
+    isLoading: false,
     genders: [],
     roles: [],
     positions: []
@@ -9,25 +10,56 @@ const initialState = {
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_GENDER_START:
+            state.isLoading = true;
             console.log('fire gender start', action);
             return {
                 ...state
             }
         case actionTypes.FETCH_GENDER_SUCCESS:
-            let copyState = { ...state };
-            let stateArr = ['genders', 'positions', 'roles'];
-            for (const key in stateArr) {
-                if (stateArr.hasOwnProperty(key)) {
-                    if (action.key === key) {
-                        copyState[stateArr[key]] = action.data;
-                    }
-                }
-            }
+            state.isLoading = false;
+            state.genders = action.data;
             return {
-                ...copyState
+                ...state
             }
         case actionTypes.FETCH_GENDER_FAILED:
-            console.log('fire gender failed', action);
+            state.isLoading = false;
+            state.genders = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_POSITION_START:
+            state.isLoading = true;
+            console.log('fire gender start', action);
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_POSITION_SUCCESS:
+            state.isLoading = false;
+            state.positions = action.data;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_POSITION_FAILED:
+            state.isLoading = false;
+            state.positions = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ROLE_START:
+            state.isLoading = true;
+            console.log('fire gender start', action);
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ROLE_SUCCESS:
+            state.isLoading = false;
+            state.roles = action.data;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ROLE_FAILED:
+            state.isLoading = false;
+            state.roles = [];
             return {
                 ...state
             }
