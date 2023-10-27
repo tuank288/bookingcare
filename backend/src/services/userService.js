@@ -86,7 +86,7 @@ let getAllUser = (userId) => {
 let createNewUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let { email, password, firstName, lastName, address, phoneNumber, gender, roleId } = data;
+            let { email, password, firstName, lastName, address, phoneNumber, gender, role, position, avatar } = data;
 
             let check = await checkUserEmail(email);
             if (check) {
@@ -103,8 +103,10 @@ let createNewUser = (data) => {
                     lastName: lastName,
                     address: address,
                     phoneNumber: phoneNumber,
-                    gender: gender === '1' ? true : false,
-                    roleId: roleId,
+                    gender: gender,
+                    roleId: role,
+                    positionId: position,
+                    image: avatar
                 })
                 resolve({
                     errCode: 0,

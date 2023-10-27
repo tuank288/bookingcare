@@ -11,7 +11,6 @@ const adminReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_GENDER_START:
             state.isLoading = true;
-            console.log('fire gender start', action);
             return {
                 ...state
             }
@@ -29,7 +28,6 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_POSITION_START:
             state.isLoading = true;
-            console.log('fire gender start', action);
             return {
                 ...state
             }
@@ -47,7 +45,6 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ROLE_START:
             state.isLoading = true;
-            console.log('fire gender start', action);
             return {
                 ...state
             }

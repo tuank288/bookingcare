@@ -19,9 +19,11 @@ class Login extends React.Component {
     }
 
     handleInputChange = (event) => {
-        const fieldName = event.target.name;
+        let copyState = { ...this.state };
+        let fieldName = event.target.name;
+        copyState[fieldName] = event.target.value;
         this.setState({
-            [fieldName]: event.target.value,
+            ...copyState
         });
     }
 
@@ -59,7 +61,6 @@ class Login extends React.Component {
     render() {
 
         let { isShowHidePassword } = this.state
-
         return (
             <div className="login-background">
                 <div className="login-container">
