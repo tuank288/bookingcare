@@ -6,6 +6,7 @@ import * as actions from '../../../store/actions';
 import './UserRedux.scss';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
+import TableManageUser from './TableManageUser';
 
 class UserRedux extends Component {
     constructor(props) {
@@ -69,6 +70,23 @@ class UserRedux extends Component {
                 user: {
                     ...this.state.user,
                     role: arrRole && arrRole.length > 0 ? arrRole[0].key : ''
+                }
+            })
+        }
+
+        if (prevProps.users !== this.props.users) {
+            this.setState({
+                user: {
+                    email: '',
+                    password: '',
+                    firstName: '',
+                    lastName: '',
+                    phoneNumber: '',
+                    address: '',
+                    gender: '',
+                    position: '',
+                    role: '',
+                    avatar: ''
                 }
             })
         }
@@ -141,6 +159,8 @@ class UserRedux extends Component {
             position: position,
             avatar: avatar
         })
+
+        this.props.fetchUserRedux();
     }
 
 
@@ -169,7 +189,7 @@ class UserRedux extends Component {
                             <div className='container'>
                                 <div className='row'>
                                     <div className="row g-3">
-                                        <div className='col-12'><FormattedMessage id='manage-user.add' /></div>
+                                        <h4 className='col-12'><FormattedMessage id='manage-user.add' /></h4>
                                         <div className="col-md-3">
                                             <label className="form-label"><FormattedMessage id='manage-user.email' /></label>
                                             <FormattedMessage id='manage-user.enter-email'>
@@ -316,7 +336,7 @@ class UserRedux extends Component {
                                                     onChange={(event) => this.handleOnchangeImage(event)}
                                                     hidden />
                                                 <label className='label-upload' htmlFor='image'>
-                                                    <span>Tải ảnh </span>
+                                                    <span><FormattedMessage id='manage-user.uploadImg' /></span>
                                                     <i className="fas fa-upload" />
                                                 </label>
                                                 <label
@@ -343,9 +363,15 @@ class UserRedux extends Component {
                                             </button>
                                         </div>
                                     </div>
+
+                                    <div className='col-12 mb-5'>
+                                        <TableManageUser />
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+
                         {this.state.isOpen &&
                             <Lightbox
                                 mainSrc={this.state.previewImgUrl}
@@ -366,7 +392,8 @@ const mapStateToProps = state => {
         genders: state.admin.genders,
         positions: state.admin.positions,
         roles: state.admin.roles,
-        isLoading: state.admin.isLoading
+        isLoading: state.admin.isLoading,
+        users: state.admin.users
     };
 };
 
@@ -375,7 +402,8 @@ const mapDispatchToProps = dispatch => {
         getGenderStart: () => dispatch(actions.fetchGenderStart()),
         getPositionStart: () => dispatch(actions.fetchPositionStart()),
         getRoleStart: () => dispatch(actions.fetchRoleStart()),
-        createNewUser: (data) => dispatch(actions.createNewUser(data))
+        createNewUser: (data) => dispatch(actions.createNewUser(data)),
+        fetchUserRedux: () => dispatch(actions.fetchAllUserStart())
         // processLogout: () => dispatch(actions.processLogout()),
         // changeLanguageApp: (language) => dispatch(actions.changeLanguageApp(language))
     };

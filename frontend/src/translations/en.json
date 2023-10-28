@@ -55,6 +55,7 @@
         "role": "Role",
         "position": "Position",
         "image": "Avatar",
+        "uploadImg": "Upload Image ",
         "save": "Save"
     }
 }

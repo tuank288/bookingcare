@@ -55,6 +55,7 @@
         "role": "Quyền",
         "position": "Chức danh",
         "image": "Hình ảnh",
+        "uploadImg": "Tải ảnh ",
         "save": "Lưu người dùng"
     }
 }

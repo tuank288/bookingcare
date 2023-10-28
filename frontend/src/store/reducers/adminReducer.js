@@ -4,7 +4,8 @@ const initialState = {
     isLoading: false,
     genders: [],
     roles: [],
-    positions: []
+    positions: [],
+    users: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -26,6 +27,7 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+
         case actionTypes.FETCH_POSITION_START:
             state.isLoading = true;
             return {
@@ -43,6 +45,7 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+
         case actionTypes.FETCH_ROLE_START:
             state.isLoading = true;
             return {
@@ -60,6 +63,29 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+
+        case actionTypes.FETCH_ALL_USERS_SUCCESS:
+            state.users = action.data;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_USERS_FAILED:
+            state.users = [];
+            return {
+                ...state
+            }
+
+
+        // case actionTypes.DELETE_USER_SUCCESS:
+        //     state.users = action.userId;
+        //     return {
+        //         ...state
+        //     }
+        // case actionTypes.DELETE_USER_FAILED:
+        //     state.users = [];
+        //     return {
+        //         ...state
+        //     }
         default:
             return state;
     }
