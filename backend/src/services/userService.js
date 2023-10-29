@@ -62,7 +62,7 @@ let getAllUser = (userId) => {
         try {
             let users = '';
             if (userId === 'ALL') {
-                users = db.User.findAll({
+                users = await db.User.findAll({
                     attributes: {
                         exclude: ['password']
                     }
@@ -159,7 +159,7 @@ let deleteUser = (userId) => {
 let editUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let { firstName, lastName, address } = data;
+            let { firstName, lastName, address, phoneNumber, gender, role, position, avatar } = data;
             let user = await db.User.findOne({
                 where: { id: data.id },
                 raw: false
@@ -168,7 +168,12 @@ let editUser = (data) => {
                 await user.update({
                     firstName: firstName,
                     lastName: lastName,
-                    address: address
+                    address: address,
+                    phoneNumber: phoneNumber,
+                    gender: gender,
+                    roleId: role,
+                    positionId: position,
+                    image: avatar
                 })
                 resolve({
                     errCode: 0,

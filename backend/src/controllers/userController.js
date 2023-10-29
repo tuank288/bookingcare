@@ -64,14 +64,15 @@ let handleDeleteNewUser = async (req, res) => {
 
 let handleEditNewUser = async (req, res) => {
     let data = req.body;
-    let { id, firstName, lastName, address } = req.body;
+    let { id, firstName, lastName, address, phoneNumber } = req.body;
 
-    if (!id || !firstName || !lastName || !address) {
+    if (!id || !firstName || !lastName || !address || !phoneNumber) {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing required parameters!',
         })
     }
+    console.log(data);
     let message = await userService.editUser(data)
     return res.status(200).json(message)
 }

@@ -39,6 +39,7 @@
     },
     "manage-user": {
         "add": "Thêm mới người dùng",
+        "edit": "Cập nhật người dùng",
         "email": "Email",
         "enter-email": "Nhập email",
         "password": "Mật khẩu",
@@ -56,6 +57,8 @@
         "position": "Chức danh",
         "image": "Hình ảnh",
         "uploadImg": "Tải ảnh ",
+        "upload": "Lưu thay đổi",
+        "cancel": "Hủy",
         "save": "Lưu người dùng"
     }
 }
