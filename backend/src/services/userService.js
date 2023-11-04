@@ -87,7 +87,6 @@ let createNewUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let { email, password, firstName, lastName, address, phoneNumber, gender, role, position, avatar } = data;
-
             let check = await checkUserEmail(email);
             if (check) {
                 resolve({
