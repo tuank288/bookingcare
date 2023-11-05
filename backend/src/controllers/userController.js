@@ -72,14 +72,12 @@ let handleEditNewUser = async (req, res) => {
             errMessage: 'Missing required parameters!',
         })
     }
-    console.log(data);
     let message = await userService.editUser(data)
     return res.status(200).json(message)
 }
 
 let getAllCode = async (req, res) => {
     try {
-
         let data = await userService.getAllCodeService(req.query.type);
         return res.status(200).json(data);
     } catch (e) {
