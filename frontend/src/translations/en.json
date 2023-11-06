@@ -12,7 +12,7 @@
         "welcome": "Welcome"
     },
     "banner": {
-        "title1": "Healthcare platform",
+        "title1": "Medical platform",
         "title2": "Comprehensive healthcare",
         "specialist-examination": "Specialist examination",
         "find-specialist": "Find a medical specialist for examination",
@@ -60,5 +60,9 @@
         "upload": "Upload",
         "cancel": "Cancel",
         "save": "Save"
+    },
+    "homepage": {
+        "outstanding-doctor": "Outstanding doctor last week",
+        "more-infor": "See more"
     }
 }

@@ -22,14 +22,18 @@ $marginBody: 0 clamp(1rem, $calcMargin, 20%);
 
 .slick-next::before,
 .slick-prev::before {
-    font-family   : 'Glyphicons Halflings' !important;
-    // content    : "\e258" !important;
+    font-family   : "Font Awesome 5 Free" !important;
+    // content    : "\f30a" !important;
     color         : red !important;
 }
 
 .slick-next:hover,
 .slick-prev:hover {
     background: rgb(233, 216, 216) !important;
+}
+
+.slick-disabled {
+    display: none !important;
 }
 
 .section-share {
@@ -75,12 +79,13 @@ $marginBody: 0 clamp(1rem, $calcMargin, 20%);
                 }
 
                 &.section-outstanding-doctor {
-                    background-color: #ebebeb;
-                    width           : 120px;
-                    height          : 120px;
-                    margin          : 0 auto;
-                    border-radius   : 50%;
-                    background-size : cover;
+                    background-color   : #ebebeb;
+                    width              : 120px;
+                    height             : 120px;
+                    margin             : 0 auto;
+                    border-radius      : 50%;
+                    background-size    : cover;
+                    background-position: top center;
                 }
 
                 &.section-handbook {

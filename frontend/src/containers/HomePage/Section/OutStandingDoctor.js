@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Slider from "react-slick";
+import { FormattedMessage } from 'react-intl';
 import * as actions from "../../../store/actions";
 import { LANGUAGES } from '../../../utils';
 
@@ -34,8 +35,8 @@ class OutStandingDoctor extends Component {
             <div className='section-share section-outstanding-doctor'>
                 <div className='section-container'>
                     <div className='section-header'>
-                        <span>Bác sĩ nổi bật tuần qua</span>
-                        <button className='btn-section'>Xem thêm</button>
+                        <span><FormattedMessage id="homepage.outstanding-doctor" /></span>
+                        <button className='btn-section'><FormattedMessage id="homepage.more-infor" /></button>
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.settings}>
@@ -49,7 +50,7 @@ class OutStandingDoctor extends Component {
                                     let resultImg = imageBase64.substring(dataIndex);
 
                                     let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`;
-                                    let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`
+                                    let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`;
                                     return (
                                         <div className='section-customize' key={index}>
                                             <div className='customize-border'>
