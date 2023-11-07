@@ -19,9 +19,7 @@ class HomeHeader extends Component {
                     <div className='home-header-content'>
                         <div className='left-content'>
                             <i className="fas fa-bars" />
-                            <div className='header-logo'>
-
-                            </div>
+                            <div className='header-logo' />
                         </div>
                         <div className='center-content'>
                             <div className='child-content'>
@@ -56,79 +54,81 @@ class HomeHeader extends Component {
                             </div>
                         </div>
                     </div>
-                </div >
-                <div className='home-header-banner'>
-                    <div className='content-up'>
-                        <div className='title1'>
-                            <FormattedMessage id="banner.title1" />
-                        </div>
-                        <div className='title2'>
-                            <FormattedMessage id="banner.title2" />
-                        </div>
-                        <div className='search'>
-                            <i className="fas fa-search" />
-                            <FormattedMessage id="banner.find-specialist">
-                                {placeholder =>
-                                    <input placeholder={placeholder} />
-                                }
-                            </FormattedMessage>
-                        </div>
-                    </div>
-                    <div className='content-down'>
-                        <div className='option'>
-                            <ul>
-                                <li>
-                                    <div className='option-icon'>
-                                        <i className="fas fa-hospital" />
-                                    </div>
-                                    <div className='option-child'>
-                                        <FormattedMessage id="banner.specialist-examination" />
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className='option-icon'>
-                                        <i className="fas fa-mobile-alt"></i>
-                                    </div>
-                                    <div className='option-child'>
-                                        <FormattedMessage id="banner.remote-consultation" />
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className='option-icon'>
-                                        <i className="fas fa-procedures"></i>
-                                    </div>
-                                    <div className='option-child'>
-                                        <FormattedMessage id="banner.general-examination" />
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className='option-icon'>
-                                        <i className="fas fa-flask"></i>
-                                    </div>
-                                    <div className='option-child'>
-                                        <FormattedMessage id="banner.medical-testing" />
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className='option-icon'>
-                                        <i className="fas fa-user-md"></i>
-                                    </div>
-                                    <div className='option-child'>
-                                        <FormattedMessage id="banner.mental-health" />
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className='option-icon'>
-                                        <i className="fas fa-stethoscope"></i>
-                                    </div>
-                                    <div className='option-child'>
-                                        <FormattedMessage id="banner.dental-check-up" />
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
+                {this.props.isShowBanner &&
+                    <div className='home-header-banner'>
+                        <div className='content-up'>
+                            <div className='title1'>
+                                <FormattedMessage id="banner.title1" />
+                            </div>
+                            <div className='title2'>
+                                <FormattedMessage id="banner.title2" />
+                            </div>
+                            <div className='search'>
+                                <i className="fas fa-search" />
+                                <FormattedMessage id="banner.find-specialist">
+                                    {placeholder =>
+                                        <input placeholder={placeholder} />
+                                    }
+                                </FormattedMessage>
+                            </div>
+                        </div>
+                        <div className='content-down'>
+                            <div className='option'>
+                                <ul>
+                                    <li>
+                                        <div className='option-icon'>
+                                            <i className="fas fa-hospital" />
+                                        </div>
+                                        <div className='option-child'>
+                                            <FormattedMessage id="banner.specialist-examination" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className='option-icon'>
+                                            <i className="fas fa-mobile-alt"></i>
+                                        </div>
+                                        <div className='option-child'>
+                                            <FormattedMessage id="banner.remote-consultation" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className='option-icon'>
+                                            <i className="fas fa-procedures"></i>
+                                        </div>
+                                        <div className='option-child'>
+                                            <FormattedMessage id="banner.general-examination" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className='option-icon'>
+                                            <i className="fas fa-flask"></i>
+                                        </div>
+                                        <div className='option-child'>
+                                            <FormattedMessage id="banner.medical-testing" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className='option-icon'>
+                                            <i className="fas fa-user-md"></i>
+                                        </div>
+                                        <div className='option-child'>
+                                            <FormattedMessage id="banner.mental-health" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className='option-icon'>
+                                            <i className="fas fa-stethoscope"></i>
+                                        </div>
+                                        <div className='option-child'>
+                                            <FormattedMessage id="banner.dental-check-up" />
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
             </>
         );
     }

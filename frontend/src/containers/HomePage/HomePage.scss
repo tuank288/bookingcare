@@ -54,6 +54,7 @@ $marginBody: 0 clamp(1rem, $calcMargin, 20%);
     .section-body {
         .section-customize {
             padding: 0 5px;
+            cursor : pointer;
 
             .customize-border {
                 padding: 10% 10%;
@@ -138,6 +139,13 @@ $marginBody: 0 clamp(1rem, $calcMargin, 20%);
                     color           : white;
                 }
             }
+        }
+
+        button {
+            border   : none;
+            outline  : none;
+            margin   : 5px;
+            font-size: 18px;
         }
     }
 }
