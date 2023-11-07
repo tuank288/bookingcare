@@ -26,16 +26,18 @@
     color           : white;
 }
 
-button {
-    border   : none;
-    outline  : none;
-    margin   : 5px;
-    font-size: 18px;
-}
+
 
 .user-table {
     overflow-x: auto;
     overflow-y: auto;
+
+    button {
+        border   : none;
+        outline  : none;
+        margin   : 5px;
+        font-size: 18px;
+    }
 }
 
 .btn-edit {
