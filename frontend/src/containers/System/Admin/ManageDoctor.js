@@ -92,6 +92,7 @@ class ManageDoctor extends Component {
             contentHTML: '',
             selectedDoctor: '',
             description: '',
+            hasOldData: false,
         })
     }
 
@@ -133,7 +134,7 @@ class ManageDoctor extends Component {
                     <div className='content-left form-group'>
                         <label>Chọn bác sĩ</label>
                         <Select
-                            defaultValue={this.state.selectedDoctor}
+                            value={this.state.selectedDoctor}
                             onChange={this.handleChangeSelect}
                             options={this.state.listDoctors}
                         />

@@ -58,6 +58,12 @@ class Login extends React.Component {
         })
     }
 
+    handleKeyDown = (e) => {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            this.handleLogin()
+        }
+    }
+
     render() {
 
         let { isShowHidePassword } = this.state
@@ -89,6 +95,7 @@ class Login extends React.Component {
                                     name="password"
                                     value={this.state.password}
                                     onChange={this.handleInputChange}
+                                    onKeyDown={this.handleKeyDown}
                                 />
                                 <span
                                     onClick={this.handleShowHidePassword}
