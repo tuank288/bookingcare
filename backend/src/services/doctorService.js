@@ -1,4 +1,5 @@
 import db from "../models";
+import { NOW } from "sequelize";
 
 let getTopDoctorHomeService = (limit) => {
     return new Promise(async (resolve, reject) => {
@@ -50,22 +51,40 @@ let getAllDoctors = () => {
 let saveDetailInforDoctor = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.doctorId || !data.contentHTML || !data.contentMarkdown) {
+            if (!data.doctorId || !data.contentHTML || !data.contentMarkdown || !data.action) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing parameter'
                 })
             } else {
-                await db.Markdown.create({
-                    contentHTML: data.contentHTML,
-                    contentMarkdown: data.contentMarkdown,
-                    description: data.description,
-                    doctorId: data.doctorId
-                })
-                resolve({
-                    errCode: 0,
-                    message: 'Save infor doctor succeed!'
-                })
+                if (data.action === 'CREATE') {
+                    await db.Markdown.create({
+                        contentHTML: data.contentHTML,
+                        contentMarkdown: data.contentMarkdown,
+                        description: data.description,
+                        doctorId: data.doctorId
+                    })
+                    resolve({
+                        errCode: 0,
+                        message: 'Save infor doctor succeed!'
+                    })
+                } else if (data.action === 'EDIT') {
+                    let doctorMarkdown = await db.Markdown.findOne({
+                        where: { doctorId: data.doctorId },
+                        raw: false
+                    })
+                    if (doctorMarkdown) {
+                        await doctorMarkdown.update({
+                            contentHTML: data.contentHTML,
+                            contentMarkdown: data.contentMarkdown,
+                            description: data.description
+                        })
+                    }
+                    resolve({
+                        errCode: 0,
+                        message: 'Update infor doctor succeed!'
+                    })
+                }
             }
         } catch (e) {
             reject(e)

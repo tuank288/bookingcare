@@ -2,14 +2,13 @@ $calcMargin: calc(26% - 190px);
 $marginBody: 0 clamp(1rem, $calcMargin, 20%);
 
 .doctor-detail-container {
-    height : 500px;
-    border : 1px solid red;
-    padding: $marginBody;
+
 
     .intro-doctor {
-        display: flex;
-        border : 1px solid gray;
-        padding: 15px 0 15px 0;
+        padding       : $marginBody;
+        display       : flex;
+        padding-top   : 15px;
+        padding-bottom: 15px;
 
         .content-left {
             background     : top center no-repeat;
@@ -35,5 +34,24 @@ $marginBody: 0 clamp(1rem, $calcMargin, 20%);
                 margin-top: 10px;
             }
         }
+    }
+
+    .detail-infor-doctor {
+        padding         : $marginBody;
+        padding-top     : 15px;
+        width           : 100%;
+        background-color: #f9f9f9;
+        border-top      : 1px solid rgb(214, 214, 214);
+        border-bottom   : 1px solid rgb(214, 214, 214);
+        padding-bottom  : 15px;
+
+        img {
+            margin-top: 10px;
+            width     : 100%;
+        }
+    }
+
+    .comment-doctor {
+        height: 50px;
     }
 }
