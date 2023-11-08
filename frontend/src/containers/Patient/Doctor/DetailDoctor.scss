@@ -1,29 +1,36 @@
 $calcMargin: calc(26% - 190px);
 $marginBody: 0 clamp(1rem, $calcMargin, 20%);
 
+
 .doctor-detail-container {
 
 
     .intro-doctor {
-        padding       : $marginBody;
-        display       : flex;
-        padding-top   : 15px;
-        padding-bottom: 15px;
+        padding          : $marginBody;
+        // display       : flex;
+        padding-top      : 15px;
+        padding-bottom   : 15px;
 
         .content-left {
-            background     : top center no-repeat;
-            background-size: cover;
-            width          : 120px;
-            height         : 120px;
-            border-radius  : 50%;
+            display       : table-cell;
+            vertical-align: top;
 
+            .img {
+                background     : top center no-repeat;
+                background-size: cover;
+                width          : 120px;
+                height         : 120px;
+                border-radius  : 50%;
+            }
         }
 
         .content-right {
-            width         : 80%;
-            display       : flex;
-            flex-direction: column;
-            padding-left  : 20px;
+            display                : table-cell;
+            vertical-align         : top;
+            // width         : 80%;
+            // display             : flex;
+            // flex-direction   : column;
+            padding-left           : 20px;
 
             .up {
                 font-size  : 20px;
