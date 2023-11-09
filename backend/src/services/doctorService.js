@@ -1,5 +1,7 @@
 import db from "../models";
-import { NOW } from "sequelize";
+import dotenv from 'dotenv'
+import _ from 'lodash'
+dotenv.config();
 
 let getTopDoctorHomeService = (limit) => {
     return new Promise(async (resolve, reject) => {
@@ -140,24 +142,45 @@ let getDetailDoctorById = (id) => {
     })
 }
 
-let saveScheduleDoctor = (data) => {
+let bulkCreateSchedule = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            console.log(data.time);
-            if (!data.doctorId || !data.date) {
+            if (!data.arrSchedule || !data.doctorId || !data.date) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing parameter'
                 })
             } else {
-                await db.Schedule.create({
-                    date: data.date,
-                    timeType: data.time,
-                    doctorId: data.doctorId
-                })
+                let schedule = data.arrSchedule
+                if (schedule && schedule.length > 0) {
+                    schedule.map(item => {
+                        item.maxNumber = process.env.MAX_NUMBER_SCHEDULE
+                        return item
+                    })
+                }
+                let existing = await db.Schedule.findAll({
+                    where: { doctorId: data.doctorId, date: data.date },
+                    attributes: ['timeType', 'date', 'doctorId', 'maxNumber'],
+                    raw: true
+                });
+
+                if (existing && existing.length > 0) {
+                    existing.map(item => {
+                        item.date = new Date(item.date).getTime();
+                        return item
+                    })
+                }
+
+                let toCreate = _.differenceWith(schedule, existing, (a, b) => {
+                    return a.timeType === b.timeType && a.date === b.date
+                });
+
+                if (toCreate && toCreate.length > 0) {
+                    await db.Schedule.bulkCreate(toCreate)
+                }
                 resolve({
                     errCode: 0,
-                    message: 'Save schedule doctor succeed!'
+                    message: 'OK'
                 })
             }
         } catch (e) {
@@ -171,5 +194,5 @@ module.exports = {
     getAllDoctors: getAllDoctors,
     saveDetailInforDoctor: saveDetailInforDoctor,
     getDetailDoctorById: getDetailDoctorById,
-    saveScheduleDoctor: saveScheduleDoctor
+    bulkCreateSchedule: bulkCreateSchedule
 }

@@ -91,7 +91,7 @@ class ManageSchedule extends Component {
         })
     }
 
-    handleSaveSchedule = () => {
+    handleSaveSchedule = async () => {
         let { rangeTime, selectedDoctor, currentDate } = this.state;
         let result = [];
         if (!currentDate) {
@@ -100,7 +100,7 @@ class ManageSchedule extends Component {
         if (!selectedDoctor) {
             toast.error(<FormattedMessage id='manage-schedule.invalid-doctor' />)
         }
-        let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+        let formatedDate = new Date(currentDate).getTime();
         if (rangeTime && rangeTime.length > 0) {
             let selectTime = rangeTime.filter(item => item.isSelected === true)
             if (selectTime && selectTime.length > 0) {
@@ -108,25 +108,20 @@ class ManageSchedule extends Component {
                     let object = {};
                     object.doctorId = selectedDoctor.value;
                     object.date = formatedDate;
-                    object.time = schedule.keyMap;
+                    object.timeType = schedule.keyMap;
                     result.push(object)
                 })
-                // let objectArr = [];
-                // selectTime.map(schedule => {
-                //     let object = {};
-                //     object.time = schedule.keyMap
-                //     objectArr.push(object)
-                // })
-                // result.doctorId = selectedDoctor.value;
-                // result.date = formatedDate;
-                // result.time = objectArr;
             } else {
                 toast.error('Invalid selected time!')
                 return
             }
         }
         console.log(result, 'check result');
-        this.props.saveScheduleDoctor(result);
+        this.props.saveScheduleDoctor({
+            arrSchedule: result,
+            doctorId: selectedDoctor.value,
+            date: formatedDate
+        });
     }
 
     render() {

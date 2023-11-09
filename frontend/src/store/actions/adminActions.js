@@ -3,7 +3,7 @@ import {
     getAllCodeService, createNewUserService,
     getAllUsers, deleteUserService, editUserService,
     getTopDoctorHomeService, getAllDoctors, saveDetailDoctorService,
-    saveScheduleDoctorService
+    saveBulkScheduleDoctor
 } from '../../services/userService';
 import { toast } from 'react-toastify';
 // export const fetchGenderStart = () => ({
@@ -297,8 +297,7 @@ export const fetchAllScheduleTime = () => {
 export const saveScheduleDoctor = (data) => {
     return async (dispatch, getState) => {
         try {
-            let res = await saveScheduleDoctorService(data);
-            console.log(res, 'check res');
+            let res = await saveBulkScheduleDoctor(data);
             if (res && res.errCode === 0) {
                 toast.success("Save schedule doctor succeed!")
                 dispatch({
