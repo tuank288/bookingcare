@@ -140,9 +140,36 @@ let getDetailDoctorById = (id) => {
     })
 }
 
+let saveScheduleDoctor = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            console.log(data.time);
+            if (!data.doctorId || !data.date) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing parameter'
+                })
+            } else {
+                await db.Schedule.create({
+                    date: data.date,
+                    timeType: data.time,
+                    doctorId: data.doctorId
+                })
+                resolve({
+                    errCode: 0,
+                    message: 'Save schedule doctor succeed!'
+                })
+            }
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
 module.exports = {
     getTopDoctorHomeService: getTopDoctorHomeService,
     getAllDoctors: getAllDoctors,
     saveDetailInforDoctor: saveDetailInforDoctor,
-    getDetailDoctorById: getDetailDoctorById
+    getDetailDoctorById: getDetailDoctorById,
+    saveScheduleDoctor: saveScheduleDoctor
 }

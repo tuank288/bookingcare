@@ -2,7 +2,8 @@ import actionTypes from './actionTypes';
 import {
     getAllCodeService, createNewUserService,
     getAllUsers, deleteUserService, editUserService,
-    getTopDoctorHomeService, getAllDoctors, saveDetailDoctorService
+    getTopDoctorHomeService, getAllDoctors, saveDetailDoctorService,
+    saveScheduleDoctorService
 } from '../../services/userService';
 import { toast } from 'react-toastify';
 // export const fetchGenderStart = () => ({
@@ -257,14 +258,14 @@ export const saveDetailDoctor = (data) => {
             } else {
                 toast.error("Save infor detail doctor error!")
                 dispatch({
-                    type: actionTypes.SAVE_DETAIL_DOCTOR_FAILED
+                    type: actionTypes.SAVE_SCHEDULE_DOCTOR_FAILED
                 })
             }
         } catch (e) {
             toast.error("Save infor detail doctor error!")
-            console.log('SAVE_DETAIL_DOCTOR_FAILED', e);
+            console.log('SAVE_SCHEDULE_DOCTOR_FAILED', e);
             dispatch({
-                type: actionTypes.SAVE_DETAIL_DOCTOR_FAILED
+                type: actionTypes.SAVE_SCHEDULE_DOCTOR_FAILED
             })
         }
     }
@@ -288,6 +289,32 @@ export const fetchAllScheduleTime = () => {
             console.log('FETCH_ALLCODE_SCHEDULE_TIME_FAILED', e);
             dispatch({
                 type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED
+            })
+        }
+    }
+}
+
+export const saveScheduleDoctor = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await saveScheduleDoctorService(data);
+            console.log(res, 'check res');
+            if (res && res.errCode === 0) {
+                toast.success("Save schedule doctor succeed!")
+                dispatch({
+                    type: actionTypes.SAVE_SCHEDULE_DOCTOR_SUCCESS,
+                })
+            } else {
+                toast.error("Save schedule doctor error!")
+                dispatch({
+                    type: actionTypes.SAVE_SCHEDULE_DOCTOR_FAILED
+                })
+            }
+        } catch (e) {
+            toast.error("Save schedule doctor error!")
+            console.log('SAVE_SCHEDULE_DOCTOR_FAILED', e);
+            dispatch({
+                type: actionTypes.SAVE_SCHEDULE_DOCTOR_FAILED
             })
         }
     }

@@ -72,6 +72,8 @@
         "title": "Quản lý kế hoạch khám bệnh của bác sĩ",
         "choose-doctor": "Chọn bác sĩ",
         "choose-date": "Chọn ngày",
-        "save": "Lưu thông tin"
+        "save": "Lưu thông tin",
+        "invalid-date": "Ngày không hợp lệ!",
+        "invalid-doctor": "Chọn bác sĩ không hợp lệ!"
     }
 }

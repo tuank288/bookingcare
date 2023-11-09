@@ -16,4 +16,10 @@
         }
     }
 
+    .btn-schedule {
+        &.active {
+            background-color: orange;
+        }
+    }
+
 }
