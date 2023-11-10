@@ -4,7 +4,6 @@ $marginBody: 0 clamp(1rem, $calcMargin, 20%);
 
 .doctor-detail-container {
 
-
     .intro-doctor {
         padding          : $marginBody;
         // display       : flex;
@@ -40,6 +39,21 @@ $marginBody: 0 clamp(1rem, $calcMargin, 20%);
             .down {
                 margin-top: 10px;
             }
+        }
+    }
+
+    .schedule-doctor {
+        padding      : $marginBody;
+        display      : flex;
+        min-height   : 200px;
+        margin-bottom: 20px;
+
+        .content-left {
+            width: 60%;
+        }
+
+        .content-right {
+            width: 40%;
         }
     }
 

@@ -116,7 +116,6 @@ class ManageSchedule extends Component {
                 return
             }
         }
-        console.log(result, 'check result');
         this.props.saveScheduleDoctor({
             arrSchedule: result,
             doctorId: selectedDoctor.value,

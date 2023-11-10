@@ -165,7 +165,7 @@ let bulkCreateSchedule = (data) => {
                 });
 
                 let toCreate = _.differenceWith(schedule, existing, (a, b) => {
-                    return a.timeType === b.timeType && a.date == b.date
+                    return a.timeType === b.timeType && +a.date === +b.date
                 });
 
                 if (toCreate && toCreate.length > 0) {
@@ -185,7 +185,6 @@ let bulkCreateSchedule = (data) => {
 let getScheduleByDate = (doctorId, date) => {
     return new Promise(async (resolve, reject) => {
         try {
-            console.log(doctorId, date);
             if (!doctorId || !date) {
                 resolve({
                     errCode: 1,
@@ -193,9 +192,16 @@ let getScheduleByDate = (doctorId, date) => {
                 })
             } else {
                 let data = await db.Schedule.findAll({
-                    where: { doctorId, date }
+                    where: { doctorId, date },
+                    include: [
+                        { model: db.Allcode, as: 'timeTypeData', attributes: ['valueEn', 'valueVi'] },
+                    ],
+                    raw: true,
+                    nest: true
                 })
+
                 if (!data) data = [];
+                console.log(data, data.timeTypeData);
                 resolve({
                     errCode: 0,
                     data
