@@ -151,7 +151,7 @@ let bulkCreateSchedule = (data) => {
                     errMessage: 'Missing parameter'
                 })
             } else {
-                let schedule = data.arrSchedule
+                let schedule = data.arrSchedule;
                 if (schedule && schedule.length > 0) {
                     schedule.map(item => {
                         item.maxNumber = process.env.MAX_NUMBER_SCHEDULE
@@ -161,18 +161,11 @@ let bulkCreateSchedule = (data) => {
                 let existing = await db.Schedule.findAll({
                     where: { doctorId: data.doctorId, date: data.date },
                     attributes: ['timeType', 'date', 'doctorId', 'maxNumber'],
-                    raw: true
+
                 });
 
-                if (existing && existing.length > 0) {
-                    existing.map(item => {
-                        item.date = new Date(item.date).getTime();
-                        return item
-                    })
-                }
-
                 let toCreate = _.differenceWith(schedule, existing, (a, b) => {
-                    return a.timeType === b.timeType && a.date === b.date
+                    return a.timeType === b.timeType && a.date == b.date
                 });
 
                 if (toCreate && toCreate.length > 0) {
@@ -189,10 +182,36 @@ let bulkCreateSchedule = (data) => {
     })
 }
 
+let getScheduleByDate = (doctorId, date) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            console.log(doctorId, date);
+            if (!doctorId || !date) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameter'
+                })
+            } else {
+                let data = await db.Schedule.findAll({
+                    where: { doctorId, date }
+                })
+                if (!data) data = [];
+                resolve({
+                    errCode: 0,
+                    data
+                })
+            }
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
 module.exports = {
     getTopDoctorHomeService: getTopDoctorHomeService,
     getAllDoctors: getAllDoctors,
     saveDetailInforDoctor: saveDetailInforDoctor,
     getDetailDoctorById: getDetailDoctorById,
-    bulkCreateSchedule: bulkCreateSchedule
+    bulkCreateSchedule: bulkCreateSchedule,
+    getScheduleByDate: getScheduleByDate
 }
