@@ -91,7 +91,7 @@ class ManageSchedule extends Component {
         })
     }
 
-    handleSaveSchedule = async () => {
+    handleSaveSchedule = () => {
         let { rangeTime, selectedDoctor, currentDate } = this.state;
         let result = [];
         if (!currentDate) {
@@ -126,6 +126,7 @@ class ManageSchedule extends Component {
     render() {
         let { rangeTime } = this.state;
         let { language } = this.props;
+        let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
         return (
             <div className='manage-schedule-container'>
                 <div className='m-s-title title center'>
@@ -148,7 +149,7 @@ class ManageSchedule extends Component {
                                 className='form-control'
                                 selected={new Date()}
                                 value={this.state.currentDate}
-                                minDate={new Date()}
+                                minDate={yesterday}
                             />
                         </div>
                         <div className='col-12 pick-hour-container'>

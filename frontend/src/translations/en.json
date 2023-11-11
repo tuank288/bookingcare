@@ -75,5 +75,13 @@
         "save": "Save",
         "invalid-date": "Invalid date!",
         "invalid-doctor": "Invalid selected doctor!"
+    },
+    "patient": {
+        "detail-doctor": {
+            "schedule": "Schedule",
+            "no-schedule": "The doctor does not have appointments, please choose another time!",
+            "choose": "Choose ",
+            "book-free": " and book (free)"
+        }
     }
 }

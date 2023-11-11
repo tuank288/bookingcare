@@ -31,21 +31,41 @@
         }
 
         .time-content {
-            display  : flex;
-            gap      : 8px;
-            flex-wrap: wrap;
 
-            button {
-                cursor          : pointer;
-                padding         : 8px 10px;
-                background-color: #fff8ae;
-                width           : 155px;
-                border          : none;
-                font-weight     : bolder;
+            .time-content-btns {
+                display  : flex;
+                gap      : 8px;
+                flex-wrap: wrap;
 
-                &:hover {
-                    box-shadow: inset 0 0 0 2px #33B0E3;
+
+                button {
+                    cursor          : pointer;
+                    padding         : 8px 10px;
+                    background-color: #fff8ae;
+                    border          : none;
+                    font-weight     : bolder;
+
+                    &.btn-vi {
+                        width: 105px;
+                    }
+
+                    &.btn-en {
+                        width: 155px;
+                    }
+
+                    &:hover {
+                        box-shadow: inset 0 0 0 2px #33B0E3;
+                    }
                 }
+
+                .no-schedule {
+                    font-style: italic;
+                    font-size : 14px;
+                }
+            }
+
+            .book-free {
+                margin-top: 10px;
             }
         }
     }
