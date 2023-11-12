@@ -91,9 +91,12 @@
             "intro-infor": "Thông tin giới thiệu",
             "save-infor": "Lưu thông tin",
             "create-infor": "Tạo thông tin",
-            "select-price": "Chọn giá",
-            "select-payment": "Chọn phương thức thanh toán",
-            "select-province": "Chọn tỉnh thành"
+            "select-price": "Giá khám bệnh",
+            "select-payment": "Phương thức thanh toán",
+            "select-province": "Tỉnh thành",
+            "name-clinic": "Tên phòng khám",
+            "address-clinic": "Địa chỉ phòng khám",
+            "note": "Ghi chú"
         }
     }
 }

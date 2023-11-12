@@ -91,9 +91,12 @@
             "intro-infor": "Introductory information",
             "save-infor": "Save infor",
             "create-infor": "Create infor",
-            "select-price": "Select price",
-            "select-payment": "Select a payment method",
-            "select-province": "Select province"
+            "select-price": "Price",
+            "select-payment": "Payment",
+            "select-province": "Province",
+            "name-clinic": "Clinic's name",
+            "address-clinic": "Clinic's address",
+            "note": "Note"
         }
     }
 }

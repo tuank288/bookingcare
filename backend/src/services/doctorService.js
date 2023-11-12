@@ -53,7 +53,10 @@ let getAllDoctors = () => {
 let saveDetailInforDoctor = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.doctorId || !data.contentHTML || !data.contentMarkdown || !data.action) {
+            if (!data.doctorId || !data.contentHTML || !data.contentMarkdown
+                || !data.action || !data.selectedPrice || !data.selectedPayment
+                || !data.selectedProvince || !data.nameClinic || !data.addressClinic
+                || !data.note) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing parameter'
@@ -65,10 +68,6 @@ let saveDetailInforDoctor = (data) => {
                         contentMarkdown: data.contentMarkdown,
                         description: data.description,
                         doctorId: data.doctorId
-                    })
-                    resolve({
-                        errCode: 0,
-                        message: 'Save infor doctor succeed!'
                     })
                 } else if (data.action === 'EDIT') {
                     let doctorMarkdown = await db.Markdown.findOne({
@@ -82,11 +81,40 @@ let saveDetailInforDoctor = (data) => {
                             description: data.description
                         })
                     }
-                    resolve({
-                        errCode: 0,
-                        message: 'Update infor doctor succeed!'
+                }
+
+                let doctorInfor = await db.Doctor_Infor.findOne({
+                    where: {
+                        doctorId: data.doctorId,
+                    },
+                    raw: false
+                })
+
+                if (doctorInfor) {
+                    await doctorInfor.update({
+                        priceId: data.selectedPrice,
+                        provinceId: data.selectedProvince,
+                        paymentId: data.selectedPayment,
+                        addressClinic: data.addressClinic,
+                        nameClinic: data.nameClinic,
+                        note: data.note
+                    })
+                } else {
+                    await db.Doctor_Infor.create({
+                        doctorId: data.doctorId,
+                        priceId: data.selectedPrice,
+                        provinceId: data.selectedProvince,
+                        paymentId: data.selectedPayment,
+                        addressClinic: data.addressClinic,
+                        nameClinic: data.nameClinic,
+                        note: data.note
                     })
                 }
+
+                resolve({
+                    errCode: 0,
+                    message: 'Save infor doctor succeed!'
+                })
             }
         } catch (e) {
             reject(e)
@@ -119,12 +147,35 @@ let getDetailDoctorById = (id) => {
                             model: db.Allcode,
                             as: 'positionData',
                             attributes: ['valueEn', 'valueVi']
-                        },
+                        }
                     ],
                     raw: false,
                     nest: true
                 })
 
+                let dataInfor = await db.Doctor_Infor.findOne({
+                    where: {
+                        doctorId: id
+                    },
+                    include: [
+                        { model: db.Allcode, as: 'priceData', attributes: ['valueEn', 'valueVi'] },
+                        { model: db.Allcode, as: 'provinceData', attributes: ['valueEn', 'valueVi'] },
+                        { model: db.Allcode, as: 'paymentData', attributes: ['valueEn', 'valueVi'] }
+                    ],
+                    raw: false,
+                    nest: true
+                })
+                if (dataInfor) {
+                    data = {
+                        ...data.toJSON(),
+                        doctorInfor: dataInfor.toJSON()
+                    }
+                } else {
+                    data = {
+                        ...data.toJSON(),
+                        doctorInfor: {}
+                    }
+                }
                 if (data && data.image) {
                     let imageBase64 = Buffer.from(data.image, 'base64').toString('binary')
                     let dataIndex = imageBase64.indexOf("data:");
@@ -201,7 +252,6 @@ let getScheduleByDate = (doctorId, date) => {
                 })
 
                 if (!data) data = [];
-                console.log(data, data.timeTypeData);
                 resolve({
                     errCode: 0,
                     data
